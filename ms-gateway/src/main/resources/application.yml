@@ -1,0 +1,26 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: ms-gaConseway
+  cloud:
+    gateway:
+      routes:
+        - id : product-service
+          #uri: http://localhost:8045
+          uri: lb://MS-PRODUCT
+          predicates:
+            - Path=/product/**
+        - id: cart-service
+          #uri: http://localhost:8050
+          uri: lb://MS-CART
+          predicates:
+            - Path=/cart/**
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka
