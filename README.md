@@ -55,3 +55,15 @@ http://localhost:8888/product/sendToCart/1
 ```
 http://localhost:8888/cart/getProducts
 ```
+
+## Circuit breaker (Resilience4J)
+Until recently, Spring Cloud only provided us one way to add circuit breakers in our applications. This was through the use of Netflix Hystrix as part of the Spring Cloud Netflix project.
+
+The Spring Cloud Netflix project is really just an annotation-based wrapper library around Hystrix. Therefore, these two libraries are tightly-coupled. This means we can't switch to another circuit breaker implementation without changing the application.
+
+The Spring Cloud Circuit Breaker project solves this. It provides an abstraction layer across different circuit breaker implementations. It's a pluggable architecture. So, we can code against the provided abstraction/interface and switch to another implementation based on our needs.
+
+Use the following API to demonstrate the circuit breaker. If the product service is not available, the service returns an empty default Product.
+```
+http://localhost:8050/circuitBreaker/sendToCart/1
+```
